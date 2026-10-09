@@ -1,5 +1,5 @@
-# Not needed in the published package (gitignore syntax; untracked files are already excluded)
+# Excluded from the registry package
 .github/
-tests/
+docs/
 megapotato_api_key.txt
 __pycache__/

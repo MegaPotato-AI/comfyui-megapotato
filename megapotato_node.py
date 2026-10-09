@@ -21,7 +21,7 @@ import requests
 import torch
 from PIL import Image
 
-try:  # ComfyUI runtime pieces; absent (or not initialisable) when imported by tests outside ComfyUI
+try:  # ComfyUI runtime pieces; absent when the module is imported outside ComfyUI
     import comfy.utils as comfy_utils
 except Exception:  # pragma: no cover
     comfy_utils = None
@@ -108,8 +108,7 @@ def tensor_to_upload(image: torch.Tensor) -> tuple[bytes, str, str]:
     """One ComfyUI image [H, W, C] (float 0..1) -> (bytes, filename, mime) for the upload.
 
     PNG first; a photo whose PNG is over the 40 MiB cap is retried as lossless WebP. Alpha is
-    composited onto white, which is exactly what the API does server-side, so the preview in the
-    workflow matches the result.
+    composited onto white (the API does the same), so the preview in the workflow matches the result.
     """
     arr = image.detach().cpu().float().clamp(0.0, 1.0).numpy()
     if arr.ndim == 2:
@@ -279,7 +278,7 @@ class MegaPotatoClient:
 
     @staticmethod
     def download(url: str) -> bytes:
-        # The result URL is presigned: a plain GET with no Authorization header.
+        # The result URL needs no Authorization header (it expires after about an hour).
         resp = requests.get(url, timeout=(30, 600), headers={"User-Agent": USER_AGENT})
         if not resp.ok:
             raise MegaPotatoApiError(f"MegaPotato result download failed: HTTP {resp.status_code}")
@@ -290,7 +289,7 @@ class MegaPotatoClient:
 
 
 class _Progress:
-    """Bar + status line on the node; both are optional (older ComfyUI, tests)."""
+    """Bar + status line on the node; both are optional (older ComfyUI)."""
 
     def __init__(self, total: int, node_id):
         self.node_id = node_id
@@ -345,7 +344,7 @@ def _status_line(state: dict, count: int) -> str:
             if eta:
                 parts.append(f"{label}{phase}, ~{int(eta)} s left")
             elif phase == "queued":
-                parts.append(f"{label}queued (a cold start can add 2-3 min)")
+                parts.append(f"{label}queued (can take an extra 2-3 min while capacity comes online)")
             else:
                 parts.append(f"{label}running")
         else:
@@ -413,7 +412,7 @@ class MegaPotatoUpscale:
                     {
                         "default": "4",
                         "tooltip": "Scale factor. 1 enhances without resizing. Limits: input up to "
-                        "6000 px per side; output up to 16400 px per side (x8 needs an input of "
+                        "6000 px per side; output up to 16 400 px per side (x8 needs an input of "
                         "2050 px or less). An x8 result can be a multi-GB tensor in RAM.",
                     },
                 ),
@@ -433,8 +432,8 @@ class MegaPotatoUpscale:
                         "default": 15,
                         "min": 3,
                         "max": 120,
-                        "tooltip": "Give up waiting after this long. The first job after a quiet period "
-                        "is a cold start (+2-3 min); a warm x8 of a 1 MP photo takes about 45 s.",
+                        "tooltip": "Give up waiting after this long. Allow an extra 2-3 min when capacity "
+                        "is being brought online; a warm x8 of a 1 MP photo takes about 45 s.",
                     },
                 ),
                 "rerun": (

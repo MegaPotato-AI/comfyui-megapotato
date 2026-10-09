@@ -17,10 +17,10 @@ JSON and in the metadata of every PNG you save.
 
 - **image** — the photo(s). A batch becomes one job per image (up to 4 run in parallel).
 - **upscale** — `1` enhances at the same size; `2`, `4`, `8` enlarge. Input up to 6000 px per side;
-  output up to 16400 px per side, so ×8 needs an input of 2050 px or less.
+  output up to 16 400 px per side, so ×8 needs an input of 2050 px or less.
 - **api_key_override** — only if you can't use the environment variable.
-- **timeout_minutes** — how long to wait. The first job after a quiet period is a cold start
-  (a GPU has to come up, +2–3 min); a warm ×8 of a 1 MP photo takes about 45 s.
+- **timeout_minutes** — how long to wait. Allow an extra 2–3 min when capacity is being brought
+  online; a warm ×8 of a 1 MP photo takes about 45 s.
 - **rerun** — the same photo at the same factor is never charged twice (the earlier result is
   returned). Change this number to force a fresh run.
 
@@ -32,9 +32,9 @@ JSON and in the metadata of every PNG you save.
 
 ## Cost
 
-Priced per 1024-px tile of the input; the node prints the exact price before uploading.
-A 1024×1024 image costs 1 chip at ×1/×2, 3 at ×4 and 9 at ×8. Chips are held at submit and
-refunded automatically if the job fails. Prices and packs: [megapotato.app/pricing](https://megapotato.app/pricing).
+Priced by the size of the photo and the factor, the same as on the site; the node prints the exact
+price before uploading. Chips are held at submit and refunded automatically if the job fails.
+Prices and packs: [megapotato.app/pricing](https://megapotato.app/pricing).
 
 ## Errors you may see
 

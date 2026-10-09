@@ -5,7 +5,7 @@ super-resolution through the [MegaPotato API](https://megapotato.app/developers)
 API key. No local model, no VRAM: the photo is processed on MegaPotato's GPUs and the result
 comes back into your workflow as a normal `IMAGE`.
 
-![MegaPotato Upscale node](https://raw.githubusercontent.com/MegaPotato-AI/comfyui-megapotato/main/icon.png)
+![MegaPotato ×8 next to a general-purpose AI model on the same 648×432 street photo](https://raw.githubusercontent.com/MegaPotato-AI/comfyui-megapotato/main/docs/comparison.jpg)
 
 ## Install
 
@@ -46,7 +46,7 @@ node is saved into the workflow JSON and into the metadata of every PNG you save
 | `image` | The photo(s). A batch becomes one job per image, up to 4 in parallel. |
 | `upscale` | `1` enhances at the same size; `2`, `4`, `8` enlarge. |
 | `api_key_override` | Only if the environment variable isn't an option. |
-| `timeout_minutes` | How long to wait (default 15). The first job after a quiet period is a cold start, +2–3 min; a warm ×8 of a 1 MP photo takes about 45 s. |
+| `timeout_minutes` | How long to wait (default 15). Allow an extra 2–3 min when capacity is being brought online; a warm ×8 of a 1 MP photo takes about 45 s. |
 | `rerun` | The same photo at the same factor is never charged twice — the earlier result is returned. Change this number to force a fresh run. |
 
 Outputs: `image`, `job_id` (also visible in your history on the site), `cost_chips`.
@@ -60,10 +60,9 @@ An example workflow is in `example_workflows/` (it also shows up in ComfyUI's te
 
 ## Cost
 
-Priced per 1024-px tile of the input; the node prints the exact price before uploading.
-A 1024×1024 image costs 1 chip at ×1/×2, 3 chips at ×4 and 9 chips at ×8. Chips are held when
-the job is submitted and refunded automatically if it fails. Packs and current prices:
-[megapotato.app/pricing](https://megapotato.app/pricing).
+Priced by the size of the photo and the factor, the same as on the site; the node prints the
+exact price before uploading. Chips are held when the job is submitted and refunded automatically
+if it fails. Packs and current prices: [megapotato.app/pricing](https://megapotato.app/pricing).
 
 ## Privacy
 
