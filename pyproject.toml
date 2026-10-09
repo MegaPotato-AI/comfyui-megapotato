@@ -1,0 +1,20 @@
+[project]
+name = "comfyui-megapotato"
+description = "MegaPotato AI upscaler (megapotato.app) as a ComfyUI node: x1/x2/x4/x8 photo super-resolution through the MegaPotato API, with your own API key."
+version = "0.1.0"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+dependencies = []
+classifiers = [
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Repository = "https://github.com/MegaPotato-AI/comfyui-megapotato"
+Documentation = "https://megapotato.app/developers"
+"Bug Tracker" = "https://github.com/MegaPotato-AI/comfyui-megapotato/issues"
+
+[tool.comfy]
+PublisherId = "megapotato"
+DisplayName = "MegaPotato AI Upscaler"
+Icon = "https://raw.githubusercontent.com/MegaPotato-AI/comfyui-megapotato/main/icon.png"
