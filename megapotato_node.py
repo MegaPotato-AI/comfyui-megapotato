@@ -34,7 +34,7 @@ try:
 except Exception:  # pragma: no cover
     PromptServer = None
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 log = logging.getLogger("comfyui-megapotato")
 

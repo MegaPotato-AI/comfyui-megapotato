@@ -5,6 +5,10 @@ super-resolution through the [MegaPotato API](https://megapotato.app/developers)
 API key. No local model, no VRAM: the photo is processed on MegaPotato's GPUs and the result
 comes back into your workflow as a normal `IMAGE`.
 
+In [our October 2026 benchmark of 18 AI upscalers](https://megapotato.app/blog/best-ai-image-upscalers-2026)
+(blind judges, 135 photos, open data under CC BY 4.0) the model came first and was the cheapest of the
+leaders. How to use it from ComfyUI: [the blog post](https://megapotato.app/blog/comfyui-upscale-node).
+
 ![MegaPotato ×8 next to a general-purpose AI model on the same 648×432 street photo](https://raw.githubusercontent.com/MegaPotato-AI/comfyui-megapotato/main/docs/comparison.jpg)
 
 ## Install

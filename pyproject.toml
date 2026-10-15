@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-megapotato"
-description = "Photo super-resolution x1-x8 in the cloud through the MegaPotato API (megapotato.app): one node, IMAGE in, IMAGE out, no model download, no VRAM. Stays faithful to the original: sharper faces and textures without invented details. Pay per photo with your own API key; test keys are free."
-version = "0.1.1"
+description = "#1 of 18 AI upscalers in our reproducible 2026 benchmark and the cheapest of the leaders (megapotato.app/blog/best-ai-image-upscalers-2026). The MegaPotato AI upscaler (megapotato.app) as one node: photo super-resolution x1-x8 on cloud GPUs through the API, IMAGE in, IMAGE out, real detail and nothing invented. No model download, no VRAM; pay per photo with your own API key, test keys are free."
+version = "0.1.2"
 license = { file = "LICENSE" }
 requires-python = ">=3.9"
 dependencies = []
